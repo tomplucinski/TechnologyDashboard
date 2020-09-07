@@ -1,96 +1,29 @@
-import axios from 'axios';
-import {
-  LOGIN_FAIL,
-  LOGIN_SUCCESS,
-  REGISTER_SUCCESS,
-  REGISTER_FAIL,
-  USER_LOADED,
-  AUTH_ERROR,
-  LOGOUT,
-  CLEAR_PROFILE,
-} from './types';
-import { setAlert } from './alert';
-import setAuthToken from '../utils/setAuthToken';
+import firebase from "firebase"
+import firebaseConfigs from "../firebase/firebaseConfigs"
 
-export const loadUser = () => async dispatch => {
-  if (localStorage.token) {
-    setAuthToken(localStorage.token);
-  }
+export const signup = (email, password) => async dispatch => {
 
-  try {
-    const { data } = await axios.get('/api/auth');
-
-    dispatch({
-      type: USER_LOADED,
-      payload: data,
-    });
-  } catch (err) {
-    dispatch({
-      type: AUTH_ERROR,
-    });
-  }
-};
-
-export const register = ({ name, email, password }) => async dispatch => {
-  const config = {
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  };
-
-  const body = JSON.stringify({ name, email, password });
-
-  try {
-    const { data } = await axios.post('/api/users', body, config);
-    dispatch({
-      type: REGISTER_SUCCESS,
-      payload: data,
-    });
-    dispatch(loadUser());
-  } catch (err) {
-    const errors = err.response.data.errors;
-
-    if (errors) {
-      errors.forEach(error => dispatch(setAlert(error.msg, 'danger')));
+    try {
+        const res = await firebase.auth().createUserWithEmailAndPassword(email,password)
+        console.log("RESPONSE", res)
+        const token = await Object.entries(res.user)[5][1].b
+        await localStorage.setItem('token', token)
+    } catch (err) {
+        console.log(err)
     }
-
-    dispatch({
-      type: REGISTER_FAIL,
-    });
-  }
-};
+}
 
 export const login = (email, password) => async dispatch => {
-  const config = {
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  };
-
-  const body = JSON.stringify({ email, password });
-
-  try {
-    const { data } = await axios.post('/api/auth', body, config);
-
-    dispatch({
-      type: LOGIN_SUCCESS,
-      payload: data,
-    });
-    dispatch(loadUser());
-  } catch (err) {
-    const errors = err.response.data.errors;
-
-    if (errors) {
-      errors.forEach(error => dispatch(setAlert(error.msg, 'danger')));
+    try {
+        const res = await firebase.auth().signInWithEmailAndPassword(email,password)
+        const token = await Object.entries(res.user)[5][1].b
+        await localStorage.setItem('token', token)
+    } catch(err) {
+        console.log(err)
     }
+}
 
-    dispatch({
-      type: LOGIN_FAIL,
-    });
-  }
-};
-
-export const logout = () => dispatch => {
-  dispatch({ type: CLEAR_PROFILE });
-  dispatch({ type: LOGOUT });
-};
+export const signout = () => async dispatch => {
+    await firebase.auth().signOut()
+    localStorage.removeItem('token')
+}
