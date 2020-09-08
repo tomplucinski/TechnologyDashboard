@@ -5,12 +5,9 @@ import Row from "react-bootstrap/Row";
 const Header = () => {
 
     return (
-        <Container>
-            <Row>
-                <h1>Winning Technology Dashboard</h1>
-            </Row>
-
-        </Container>
+        <div>
+            <h1>Winning Technology Dashboard</h1>
+        </div>
     );
 };
 
