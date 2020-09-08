@@ -1,12 +1,14 @@
 const express = require('express');
 const app = express();
 const path = require('path');
+const cors = require('cors')
 
 // Init Middleware
 app.use(express.json({ extended: false }));
+app.use(cors())
 
 // Define Routes
-app.use('/api/auth', require('./routes/api/auth'));
+app.use('/api/github', require('./routes/api/github'));
 
 // Serve static assets in production
 if (process.env.NODE_ENV === 'production') {
