@@ -2,4 +2,4 @@ export const REACT_SUCCESS = 'REACT_SUCCESS';
 export const ANGULAR_SUCCESS = 'ANGULAR_SUCCESS';
 export const VUE_SUCCESS = 'VUE_SUCCESS';
 export const EMBER_SUCCESS = 'EMBER_SUCCESS';
-export const AUTH_SUCCESS = 'AUTH_SUCCESS';
+export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';

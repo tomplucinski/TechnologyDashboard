@@ -1,15 +1,23 @@
 import {
-    AUTH_SUCCESS
+    LOGIN_SUCCESS
 } from '../actions/types';
 
-export default function(state = {}, action) {
-    const { type, payload } = action;
 
+const initialState = {
+    token: null,
+    isAuthenticated: null,
+    user: null
+};
+
+export default function(state = initialState, action) {
+    const { type, payload } = action;
     switch (type) {
-        case AUTH_SUCCESS:
+        case LOGIN_SUCCESS:
             return {
                 ...state,
-                payload
+                user: payload.email,
+                isAuthenticated: true,
+                token: localStorage.getItem('token')
             }
         default:
             return state

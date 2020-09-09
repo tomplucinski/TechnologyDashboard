@@ -8,8 +8,17 @@ class Dashboard extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            data: ''
+            user: '',
+            canVote: true
         }
+    }
+
+    componentDidMount() {
+        // console.log(this.state)
+    }
+
+    handleClick() {
+        console.log('clicked')
     }
 
     render() {
@@ -17,10 +26,10 @@ class Dashboard extends React.Component {
             <div>
                 <GitHubStats />
                 <h4>Please vote for your favorite front end technology!</h4>
-                <Button variant="primary">React</Button>{' '}
-                <Button variant="success">Vue</Button>{' '}
-                <Button variant="danger">Angular</Button>{' '}
-                <Button variant="info">Ember</Button>{' '}
+                <Button onClick={this.handleClick} variant="primary">React</Button>{' '}
+                <Button onClick={this.handleClick} variant="success">Vue</Button>{' '}
+                <Button onClick={this.handleClick} variant="danger">Angular</Button>{' '}
+                <Button onClick={this.handleClick} variant="info">Ember</Button>{' '}
             </div>
         );
     }

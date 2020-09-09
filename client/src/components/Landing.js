@@ -1,26 +1,53 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import PropTypes from 'prop-types';
+import { Link, withRouter } from 'react-router-dom';
+import {connect} from "react-redux";
+import { logout } from '../actions/auth'
+import Button from 'react-bootstrap/Button';
 
-const Landing = () => {
+class Landing extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            user: '',
+            token: ''
+        }
+    }
 
-    return (
-       <div>
-           <p>
-               Please login or signup to vote for your favorite front end technology!
-           </p>
-           <Link to="/signup">
-               Sign Up
-           </Link>
-           <Link to="/login">
-               Login
-           </Link>
-       </div>
-    );
-};
+    componentDidMount = async () => {
+        const user = await localStorage.getItem('user')
+        const token = await localStorage.getItem('token')
+        await this.setState({user, token})
+    }
 
-Landing.propTypes = {
-    isAuthenticated: PropTypes.bool,
-};
+    handleClick = (e) => {
+        this.props.logout()
+        this.props.history.push('/')
+    }
 
-export default Landing
+    render() {
+        console.log('state', this.state)
+        return (
+            <div>
+                <h1>Winning Technology Dashboard</h1>
+                {this.state.user ? <div>
+                    Welcome, {this.state.user}
+                    <br/>
+                    <Button onClick={this.handleClick}>Log out</Button>
+                </div> : <div>
+                    <p>
+                        Please login or signup to vote for your favorite front end technology!
+                    </p>
+                    <Link to="/signup">
+                        Sign Up
+                    </Link>
+                    <br/>
+                    <Link to="/login">
+                        Login
+                    </Link>
+                </div> }
+            </div>
+        )
+    }
+}
+
+export default withRouter(connect(null, {logout})(Landing))
