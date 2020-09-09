@@ -1,53 +1,19 @@
 import React from 'react';
-import { Link, withRouter } from 'react-router-dom';
-import {connect} from "react-redux";
-import { logout } from '../actions/auth'
-import Button from 'react-bootstrap/Button';
+import Login from "./Login";
+import Signup from "./Signup";
 
-class Landing extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            user: '',
-            token: ''
-        }
-    }
-
-    componentDidMount = async () => {
-        const user = await localStorage.getItem('user')
-        const token = await localStorage.getItem('token')
-        await this.setState({user, token})
-    }
-
-    handleClick = (e) => {
-        this.props.logout()
-        this.props.history.push('/')
-    }
-
-    render() {
-        console.log('state', this.state)
-        return (
+const Landing = () => {
+    return (
+        <div>
+            <h1>Winning Technology Dashboard</h1>
             <div>
-                <h1>Winning Technology Dashboard</h1>
-                {this.state.user ? <div>
-                    Welcome, {this.state.user}
-                    <br/>
-                    <Button onClick={this.handleClick}>Log out</Button>
-                </div> : <div>
-                    <p>
-                        Please login or signup to vote for your favorite front end technology!
-                    </p>
-                    <Link to="/signup">
-                        Sign Up
-                    </Link>
-                    <br/>
-                    <Link to="/login">
-                        Login
-                    </Link>
-                </div> }
+                Please login or signup to vote for your favorite front end technology, make sure to provide a valid email with password of at least 6 letters.
             </div>
-        )
-    }
+            <Login />
+            <br/>
+            <Signup />
+        </div>
+    )
 }
 
-export default withRouter(connect(null, {logout})(Landing))
+export default Landing

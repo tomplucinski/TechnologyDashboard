@@ -14,7 +14,6 @@ class Signup extends React.Component {
 
     handleSubmit = (e) => {
         this.props.signup(this.state.email, this.state.password)
-        console.log(this.state.email, this.state.password)
         this.props.history.push('/dashboard')
     }
 

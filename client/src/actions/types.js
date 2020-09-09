@@ -3,3 +3,5 @@ export const ANGULAR_SUCCESS = 'ANGULAR_SUCCESS';
 export const VUE_SUCCESS = 'VUE_SUCCESS';
 export const EMBER_SUCCESS = 'EMBER_SUCCESS';
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
+export const SIGNUP_SUCCESS = 'SIGNUP_SUCCESS';
+export const VOTE_SUCCESS = 'VOTE_SUCCESS';

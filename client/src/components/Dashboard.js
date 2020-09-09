@@ -3,22 +3,27 @@ import { connect } from 'react-redux'
 import {withRouter} from "react-router-dom";
 import Button from 'react-bootstrap/Button';
 import GitHubStats from "./GitHubStats";
+import { submitVote } from '../actions/vote'
 
 class Dashboard extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            user: '',
             canVote: true
         }
     }
 
-    componentDidMount() {
-        // console.log(this.state)
-    }
+    handleClick = (e) => {
+        if (this.props.state.user && this.state.canVote) {
+            e.preventDefault()
+            this.props.submitVote(this.props.state.user, e.target.innerText)
+            this.setState({canVote: false})
 
-    handleClick() {
-        console.log('clicked')
+            // I would not put alert in production due to security reasons
+            alert('Thank you for your vote!')
+        } else {
+            alert('You cannot vote more than once')
+        }
     }
 
     render() {
@@ -33,6 +38,10 @@ class Dashboard extends React.Component {
             </div>
         );
     }
-};
+}
 
-export default Dashboard
+const mapStateToProps = state => ({
+    state: state.auth
+});
+
+export default withRouter(connect(mapStateToProps, { submitVote })(Dashboard))

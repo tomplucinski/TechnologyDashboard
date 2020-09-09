@@ -1,16 +1,14 @@
 import {
-    LOGIN_SUCCESS, SIGNUP_SUCCESS
+    VOTE_SUCCESS
 } from '../actions/types';
 
 export default function(state = {}, action) {
     const { type, payload } = action;
+
     switch (type) {
-        case LOGIN_SUCCESS:
-        case SIGNUP_SUCCESS:
+        case VOTE_SUCCESS:
             return {
-                ...state,
-                user: payload.email,
-                token: payload.xa
+                ...state
             }
         default:
             return state

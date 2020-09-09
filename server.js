@@ -9,6 +9,7 @@ app.use(cors())
 
 // Define Routes
 app.use('/api/github', require('./routes/api/github'));
+app.use('/api/vote', require('./routes/api/vote'));
 
 // Serve static assets in production
 if (process.env.NODE_ENV === 'production') {
