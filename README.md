@@ -1,7 +1,7 @@
 # Technology Dashboard
 
 ## Thought process:
-When I fist started thinking about the architechture of this application I knew I would need a multi module build since I needed to serve up my front end code 
+When I fist started thinking about the architecture of this application I knew I would need a multi module build since I needed to serve up my front end code 
 as well as my express.js backend. I wired up google Firebase as my authentication system that I use for signing up and logging in users. Because I am using Firebase
 authentication I can utilize a JWT for authentication. After wiring up basic login functionality I deployed my barebones application to Heroku to make sure 
 deployement was successfull. Throughout development I would code a feature, push to github, and deploy to ensure things were working correctly and to adhere to 
